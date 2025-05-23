@@ -10,12 +10,6 @@ container.addEventListener("mouseover", e => {
     addHoverEffect(e.target);
 })
 
-container.addEventListener("mouseout", e => {
-    // target is a tile
-    console.log(e.target);
-    removeHoverEffect(e.target);
-})
-
 size_btn.addEventListener("click", e => {
     let msg = parseInt(prompt("Enter a valid size (1-100): ", "1"), 10)
     
