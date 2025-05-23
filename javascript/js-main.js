@@ -1,5 +1,9 @@
 const container = document.querySelector(".container");
+const size_btn = document.querySelector("#user-input");
 const GRID_SIZE = 16;
+
+// default displayed grid
+createGrid(16);
 
 container.addEventListener("mouseover", e => {
     // target is a tile
@@ -12,12 +16,23 @@ container.addEventListener("mouseout", e => {
     removeHoverEffect(e.target);
 })
 
-function createGrid() {
+size_btn.addEventListener("click", e => {
+    let msg = parseInt(prompt("Enter a valid size (1-100): ", "1"), 10)
+    
+    if (!checkValidInput(msg)) {
+        alert("Invalid Input");
+    }
+    else {
+        createNewGrid(msg);
+    }
+});
+
+function createGrid(size) {
     // creates a grid of divs in the container
-    for (let i=0; i<GRID_SIZE; i++) {
+    for (let i=0; i<size; i++) {
         let row_div = document.createElement("div");
         row_div.setAttribute("class", "container-row");
-        for (let j = 0; j < GRID_SIZE; j++) {
+        for (let j = 0; j < size; j++) {
             let div = document.createElement("div");
             div.setAttribute("class", "tile");
             row_div.appendChild(div);             
@@ -34,4 +49,21 @@ function removeHoverEffect(tile) {
     tile.classList.remove("tile-hover");
 }
 
-createGrid();
+function checkValidInput(input) {
+    if (isNaN(input)) {
+        return false;
+    }
+    if (input <= 0 || input > 100) {
+        return false;
+    }
+    return true;
+}
+
+function clearGrid() {
+    container.textContent = "";
+}
+
+function createNewGrid(size) {
+    clearGrid();
+    createGrid(size);
+}
